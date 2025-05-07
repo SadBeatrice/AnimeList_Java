@@ -54,7 +54,7 @@ public class AnimeService {
 	}
 
 	// DELETE
-	public String delete(Long id) {
+	public String deleteById(Long id) {
 		this.animeRepository.deleteById(id);
 		return "Anime deletado com sucesso!";
 	}

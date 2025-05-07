@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,12 +20,13 @@ import api.service.AnimeService;
 
 @RestController
 @RequestMapping("/api/anime")
+@CrossOrigin("*")
 public class AnimeController {
 
 	@Autowired
 	private AnimeService animeService;
 
-	//Método Save - POST
+	// Método Save - POST
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Anime anime){
 		try {
@@ -50,7 +52,7 @@ public class AnimeController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable long id){
 		try {
-			String mensagem = this.animeService.delete(id);
+			String mensagem = this.animeService.deleteById(id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Erro ao deletar.", HttpStatus.BAD_REQUEST);
