@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import api.entity.Anime;
 import api.repository.AnimeRepository;
 
-
 @Service
 public class AnimeService {
 
-	private final AnimeRepository animeRepository;
+    // Injeção das dependências necessárias: repositório de animes, serviço de categorias e serviço de estúdios
+    private final AnimeRepository animeRepository;
     private final CategoryService categoryService;
     private final StudioService studioService;
 
@@ -26,8 +26,7 @@ public class AnimeService {
         this.studioService = studioService;
     }
 
-
-	// SAVE
+    // Salva um novo anime, tratando categorias e estúdio
     public String save(Anime anime) {
         anime.setCategories(categoryService.getOrCreateCategories(anime.getCategories()));
         anime.setStudio(studioService.getOrCreateStudio(anime.getStudio()));
@@ -36,39 +35,34 @@ public class AnimeService {
         return "Anime salvo com sucesso!";
     }
 
-    // UPDATE
-	public String update(Anime anime, Long id) {
-		
-		Optional<Anime> existingAnimeOpt = animeRepository.findById(id);
-	    if (existingAnimeOpt.isEmpty()) {
-	        return "Anime não encontrado!";
-	    }
-	    
-		anime.setId(id);
-		
-		anime.setCategories(categoryService.getOrCreateCategories(anime.getCategories()));
+    // Atualiza um anime existente com base no ID, incluindo tratamento de categorias e estúdio
+    public String update(Anime anime, Long id) {
+        Optional<Anime> existingAnimeOpt = animeRepository.findById(id);
+        if (existingAnimeOpt.isEmpty()) {
+            return "Anime não encontrado!";
+        }
+
+        anime.setId(id);
+        anime.setCategories(categoryService.getOrCreateCategories(anime.getCategories()));
         anime.setStudio(studioService.getOrCreateStudio(anime.getStudio()));
 
         animeRepository.save(anime);
-		return "Anime atualizado com sucesso!";
-	}
+        return "Anime atualizado com sucesso!";
+    }
 
-	// DELETE
-	public String deleteById(Long id) {
-		this.animeRepository.deleteById(id);
-		return "Anime deletado com sucesso!";
-	}
+    // Remove um anime com base no ID
+    public String deleteById(Long id) {
+        this.animeRepository.deleteById(id);
+        return "Anime deletado com sucesso!";
+    }
 
-	// FIND ALL
-	public List<Anime> findAll(){
-		List<Anime> anime = this.animeRepository.findAll();
-		return anime;
-	}
+    // Retorna a lista de todos os animes
+    public List<Anime> findAll() {
+        return this.animeRepository.findAll();
+    }
 
-	// FIND BY ID
-	public Anime findById(Long id) {
-		Anime anime = this.animeRepository.findById(id).get();
-		return anime;
-	}
-
+    // Busca um anime específico pelo ID
+    public Anime findById(Long id) {
+        return this.animeRepository.findById(id).get();
+    }
 }

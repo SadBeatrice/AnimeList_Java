@@ -1,7 +1,6 @@
 package api.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,70 +13,70 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import api.entity.Anime;
 import api.service.AnimeService;
 
-@RestController
-@RequestMapping("/api/anime")
-@CrossOrigin("*")
+@RestController					// Define esta classe como um controlador REST
+@RequestMapping("/api/anime")	// Define o caminho base para todos os endpoints de categoria
+@CrossOrigin("*")				// Permite requisições de qualquer origem (CORS)
 public class AnimeController {
 
+	// Injeta o AnimeService
 	@Autowired
 	private AnimeService animeService;
 
-	// Método Save - POST
-	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody Anime anime){
-		try {
-			String mensagem = this.animeService.save(anime);
-			return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Erro ao tentar salvar.", HttpStatus.BAD_REQUEST);
-		}
-	}
+    // Salva um novo anime (caso não haja erro)
+    @PostMapping("/save")
+    public ResponseEntity<String> save(@RequestBody Anime anime){
+        try {
+            String mensagem = this.animeService.save(anime);
+            return new ResponseEntity<>(mensagem, HttpStatus.CREATED); // Retorna sucesso com código 201 (Created)
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao tentar salvar.", HttpStatus.BAD_REQUEST); // Retorna erro com código 400 (Bad Request)
+        }
+    }
 
-	// Método Update - PUT
-	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@RequestBody Anime anime, @PathVariable long id){
-		try {
-			String mensagem = this.animeService.update(anime, id);
-			return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Erro ao alterar.", HttpStatus.BAD_REQUEST);
-		}
-	}
+    // Atualiza um anime existente baseado no ID (caso não haja erro)
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> update(@RequestBody Anime anime, @PathVariable long id){
+        try {
+            String mensagem = this.animeService.update(anime, id);
+            return new ResponseEntity<>(mensagem, HttpStatus.CREATED); // Retorna sucesso com código 201 (Created)
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao alterar.", HttpStatus.BAD_REQUEST); // Retorna erro com código 400 (Bad Request)
+        }
+    }
 
-	// Método delete - DELETE
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> delete(@PathVariable long id){
-		try {
-			String mensagem = this.animeService.deleteById(id);
-			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Erro ao deletar.", HttpStatus.BAD_REQUEST);
-		}
-	}
+    // Deleta um anime com base no ID (caso não haja erro)
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable long id){
+        try {
+            String mensagem = this.animeService.deleteById(id);
+            return new ResponseEntity<>(mensagem, HttpStatus.OK); // Retorna sucesso com código 200 (OK)
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro ao deletar.", HttpStatus.BAD_REQUEST); // Retorna erro com código 400 (Bad Request)
+        }
+    }
 
-	// Método Find All - GET
-	@GetMapping("/findAll")
-	public ResponseEntity<List<Anime>> findAll (){
-		try {
-			List<Anime> lista = this.animeService.findAll();
-			return new ResponseEntity<>(lista, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<> (null , HttpStatus.BAD_REQUEST);
-		}
-	}
+    // Retorna todos os animes (caso não haja erro)
+    @GetMapping("/findAll")
+    public ResponseEntity<List<Anime>> findAll (){
+        try {
+            List<Anime> lista = this.animeService.findAll();
+            return new ResponseEntity<>(lista, HttpStatus.OK); // Retorna sucesso com código 200 (OK)
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); // Retorna erro com código 400 (Bad Request)
+        }
+    }
 
-	// Método Find By Id - GET
-	@GetMapping("/findById/{id}")
-	public ResponseEntity<Anime> findById(@PathVariable Long id){
-		try {
-			Anime anime = this.animeService.findById(id);
-			return new ResponseEntity<>(anime, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
+    // Retorna um anime baseado no ID informado (caso não haja erro)
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<Anime> findById(@PathVariable Long id){
+        try {
+            Anime anime = this.animeService.findById(id);
+            return new ResponseEntity<>(anime, HttpStatus.OK); // Retorna sucesso com código 200 (OK)
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); // Retorna erro com código 400 (Bad Request)
+        }
+    }
 }
