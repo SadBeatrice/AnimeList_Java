@@ -1,30 +1,30 @@
 # 🎥 AnimeList
+🚧 Projeto em desenvolvimento 🚧
 
-🚧 **Projeto em desenvolvimento** 🚧  
-AnimeList é uma aplicação full stack para gerenciamento de animes, onde usuários podem registrar animes assistidos, dar notas, criar listas personalizadas e compartilhá-las com outros usuários. O projeto está sendo desenvolvido com **Java (Spring Boot)** no backend e **Angular** no frontend.
+AnimeList é uma aplicação full stack para gerenciamento de animes, onde é possível adicionar, editar e remover animes, além de gerenciar categorias e estúdios.
+O projeto está sendo desenvolvido com **Java (Spring Boot)** no backend e **Angular** no frontend.
 
----
-
-## ⚙️ Funcionalidades (em desenvolvimento)
-
+⚙️ **Funcionalidades** (em desenvolvimento)
 - ✅ Cadastro, edição, listagem e remoção de animes
-- 🔐 Autenticação e registro de usuários
-- ⭐ Avaliação de animes por usuário
-- 📂 Criação de listas personalizadas
-- 🔗 Compartilhamento de listas entre usuários
+- ✅ Cadastro, edição e remoção de categorias
+- ✅ Cadastro, edição e remoção de estúdios
+- ✅ Associação de animes a estúdios e categorias
+- 🔐 Autenticação e registro de usuários com **JWT**
 
----
+🛠️ **Tecnologias**
 
-## 🛠️ Tecnologias
-
-### Backend
+**Backend**
 - Java 17
 - Spring Boot
 - Spring Data JPA
 - Spring Security (JWT)
 - Maven
 
-### Frontend
+**Frontend**
+- Angular
+- Angular Material
+- Bootstrap
 
-
----
+🔗 **Repositórios**
+- **Backend**: [AnimeList-Backend](https://github.com/SadBeatrice/AnimeList_Java)
+- **Frontend**: [AnimeList-Frontend](https://github.com/SadBeatrice/AnimeList_Front)
